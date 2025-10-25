@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>请假审批</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-8">
+  <div class="max-w-5xl mx-auto bg-white shadow-xl rounded-xl p-6">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">待审批的请假申请</h2>
+
+    {% if leaves %}
+      <table class="w-full border border-gray-300 rounded mb-6">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="p-2 border">员工</th>
+            <th class="p-2 border">请假类型</th>
+            <th class="p-2 border">开始</th>
+            <th class="p-2 border">结束</th>
+            <th class="p-2 border">原因</th>
+            <th class="p-2 border">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for leave in leaves %}
+          <tr class="border-t">
+            <td class="p-2 border">{{ leave.name }}</td>
+            <td class="p-2 border">{{ leave.leave_type }}</td>
+            <td class="p-2 border">{{ leave.start_date }}</td>
+            <td class="p-2 border">{{ leave.end_date }}</td>
+            <td class="p-2 border">{{ leave.reason }}</td>
+            <td class="p-2 border">
+              <form method="post" style="display:inline;">
+                <input type="hidden" name="leave_id" value="{{ leave.leave_id }}">
+                <input type="hidden" name="action" value="approve">
+                <button type="submit" class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">批准</button>
+              </form>
+              <form method="post" style="display:inline;">
+                <input type="hidden" name="leave_id" value="{{ leave.leave_id }}">
+                <input type="hidden" name="action" value="reject">
+                <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 ml-2">拒绝</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="text-gray-600">目前没有待审批的请假申请。</p>
+    {% endif %}
+
+    <a href="{{ url_for('dashboard') }}" class="bg-gray-500 text-white py-2 px-6 rounded hover:bg-gray-600">返回</a>
+  </div>
+</body>
+</html>

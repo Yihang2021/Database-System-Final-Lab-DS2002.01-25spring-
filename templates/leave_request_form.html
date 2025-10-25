@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>请假申请</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-8">
+  <div class="max-w-xl mx-auto bg-white shadow-xl rounded-xl p-6">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">提交请假申请</h2>
+
+    {% if message %}
+      <div class="bg-green-100 text-green-800 border border-green-300 p-3 rounded mb-4">{{ message }}</div>
+    {% endif %}
+    {% if error %}
+      <div class="bg-red-100 text-red-800 border border-red-300 p-3 rounded mb-4">{{ error }}</div>
+    {% endif %}
+
+    <form method="post">
+      <label class="block mb-2 font-medium text-gray-700">请假类型</label>
+      <select name="leave_type" required class="w-full border border-gray-300 rounded px-3 py-2 mb-4">
+        <option value="">请选择请假类型</option>
+        <option value="年假">年假</option>
+        <option value="病假">病假</option>
+        <option value="产假">产假</option>
+        <option value="工伤假">工伤假</option>
+        <option value="事假">事假</option>
+      </select>
+
+      <label class="block mb-2 font-medium text-gray-700">开始日期</label>
+      <input type="date" name="start_date" required class="w-full border border-gray-300 rounded px-3 py-2 mb-4">
+
+      <label class="block mb-2 font-medium text-gray-700">结束日期</label>
+      <input type="date" name="end_date" required class="w-full border border-gray-300 rounded px-3 py-2 mb-4">
+
+      <label class="block mb-2 font-medium text-gray-700">请假原因</label>
+      <textarea name="reason" required class="w-full border border-gray-300 rounded px-3 py-2 mb-4" rows="4"></textarea>
+
+      <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
+        提交申请
+      </button>
+    </form>
+
+    <div class="mt-6 text-center">
+      <a href="{{ url_for('dashboard') }}" class="bg-gray-500 text-white py-2 px-6 rounded hover:bg-gray-600">返回</a>
+    </div>
+  </div>
+</body>
+</html>

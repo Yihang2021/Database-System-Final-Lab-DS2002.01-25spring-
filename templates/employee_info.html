@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>我的基本信息</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-8">
+  <div class="max-w-2xl mx-auto bg-white shadow-xl rounded-xl p-6">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">我的基本信息</h2>
+    <table class="w-full text-left border border-gray-300 rounded">
+      <tbody>
+        <tr class="border-b"><th class="p-3 text-gray-700 w-1/3">姓名</th><td class="p-3">{{ info.name }}</td></tr>
+        <tr class="border-b"><th class="p-3 text-gray-700">性别</th><td class="p-3">{{ info.gender }}</td></tr>
+        <tr class="border-b"><th class="p-3 text-gray-700">学历</th><td class="p-3">{{ info.education }}</td></tr>
+        <tr class="border-b"><th class="p-3 text-gray-700">电话</th><td class="p-3">{{ info.phone }}</td></tr>
+        <tr class="border-b"><th class="p-3 text-gray-700">邮箱</th><td class="p-3">{{ info.email }}</td></tr>
+        <tr class="border-b"><th class="p-3 text-gray-700">岗位</th><td class="p-3">{{ info.pos_name }}</td></tr>
+        <tr class="border-b"><th class="p-3 text-gray-700">薪资</th><td class="p-3">¥ {{ info.salary }}</td></tr>
+        <tr class="border-b"><th class="p-3 text-gray-700">部门</th><td class="p-3">{{ info.dept_name }}</td></tr>
+        <tr class="border-b"><th class="p-3 text-gray-700">部门负责人</th><td class="p-3">{{ info.manager_name }}</td></tr>
+        <tr><th class="p-3 text-gray-700">部门职责</th><td class="p-3">{{ info.function_desc }}</td></tr>
+      </tbody>
+    </table>
+    <div class="mt-6 text-center">
+      <a href="{{ url_for('dashboard') }}" class="bg-gray-500 text-white py-2 px-6 rounded hover:bg-gray-600">返回</a>
+    </div>
+  </div>
+</body>
+</html>

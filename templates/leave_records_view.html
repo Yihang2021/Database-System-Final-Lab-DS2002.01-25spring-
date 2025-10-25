@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>请假记录</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 p-6">
+  <div class="max-w-4xl mx-auto bg-white rounded-lg shadow p-6">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">员工请假记录</h2>
+    <p class="text-gray-700 mb-4">
+      工号：{{ emp.emp_id }}<br>
+      姓名：{{ emp.name }}<br>
+      部门：{{ emp.dept_name }}<br>
+      岗位：{{ emp.pos_name }}
+    </p>
+
+    {% if leaves %}
+      <table class="table-auto w-full border text-sm">
+        <thead class="bg-gray-100 text-gray-700">
+          <tr>
+            <th class="border px-3 py-2">请假类型</th>
+            <th class="border px-3 py-2">开始日期</th>
+            <th class="border px-3 py-2">结束日期</th>
+            <th class="border px-3 py-2">提交时间</th>
+            <th class="border px-3 py-2">审批状态</th>
+            <th class="border px-3 py-2">审批人</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for leave in leaves %}
+            <tr class="text-center hover:bg-gray-50">
+              <td class="border px-3 py-2">{{ leave.leave_type }}</td>
+              <td class="border px-3 py-2">{{ leave.start_date }}</td>
+              <td class="border px-3 py-2">{{ leave.end_date }}</td>
+              <td class="border px-3 py-2">{{ leave.request_time }}</td>
+              <td class="border px-3 py-2">
+                {% if leave.status == '已批准' %}
+                  <span class="text-green-600 font-semibold">{{ leave.status }}</span>
+                {% elif leave.status == '已拒绝' %}
+                  <span class="text-red-600 font-semibold">{{ leave.status }}</span>
+                {% else %}
+                  <span class="text-yellow-600 font-semibold">{{ leave.status }}</span>
+                {% endif %}
+              </td>
+              <td class="border px-3 py-2">{{ leave.reviewer_name or '（待定）' }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="text-gray-500">暂无请假记录。</p>
+    {% endif %}
+
+    <div class="mt-6 text-center">
+      <a href="{{ url_for('admin_employees') }}" class="bg-gray-500 text-white py-2 px-6 rounded hover:bg-gray-600">返回</a>
+    </div>
+  </div>
+</body>
+</html>

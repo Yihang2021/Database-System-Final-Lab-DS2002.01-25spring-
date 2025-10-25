@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>员工签到</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen">
+  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">员工签到</h2>
+
+    {% if message %}
+      <p class="bg-green-100 text-green-800 text-center py-2 px-4 rounded mb-4 font-medium">{{ message }}</p>
+      <div class="flex justify-center">
+        <a href="{{ url_for('dashboard') }}" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded">
+          返回首页
+        </a>
+      </div>
+    {% elif error %}
+      <p class="bg-yellow-100 text-yellow-800 text-center py-2 px-4 rounded mb-4 font-medium">{{ error }}</p>
+      <div class="flex justify-center">
+        <a href="{{ url_for('dashboard') }}" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded">
+          返回首页
+        </a>
+      </div>
+    {% else %}
+      <form method="POST" class="flex justify-center">
+        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded">
+          点击打卡
+        </button>
+      </form>
+    {% endif %}
+  </div>
+</body>
+</html>

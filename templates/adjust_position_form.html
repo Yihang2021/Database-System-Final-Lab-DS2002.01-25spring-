@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>修改岗位与薪资</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-8">
+
+    <div class="max-w-4xl mx-auto bg-white shadow-xl rounded-xl p-8">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">调整 {{ emp[1] }} 的岗位与薪资</h2>
+
+        {% if message %}
+            <div class="bg-green-100 text-green-800 p-4 rounded-lg mb-4">
+                <p>{{ message }}</p>
+            </div>
+        {% endif %}
+
+        <form action="{{ url_for('adjust_position_form', emp_id=emp[0]) }}" method="POST">
+            <div class="mb-4">
+                <label for="new_pos_id" class="block text-gray-700 font-semibold">选择岗位</label>
+                <select id="new_pos_id" name="new_pos_id" class="mt-2 w-full border border-gray-300 rounded-lg p-2">
+                    {% for pos in positions %}
+                        <option value="{{ pos[0] }}" {% if pos[0] == emp[3] %}selected{% endif %}>
+                            {{ pos[1] }} ({{ pos[2] }} - {{ pos[3] }} ~ {{ pos[4] }})
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label for="new_salary" class="block text-gray-700 font-semibold">新的薪资</label>
+                <input type="number" id="new_salary" name="new_salary" value="{{ emp[2] }}" min="0"
+                       class="mt-2 w-full border border-gray-300 rounded-lg p-2" required>
+            </div>
+
+            <div class="mb-6">
+                <button type="submit" class="bg-green-500 hover:bg-green-600 text-white py-2 px-6 rounded-lg">
+                    提交
+                </button>
+            </div>
+        </form>
+
+        <a href="{{ url_for('adjust_position_list') }}" class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-6 rounded-lg inline-block">
+            返回
+        </a>
+    </div>
+
+</body>
+</html>

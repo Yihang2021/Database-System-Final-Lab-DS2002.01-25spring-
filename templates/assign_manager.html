@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>修改部门负责人</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-10">
+  <div class="max-w-xl mx-auto bg-white shadow-lg rounded-xl p-8">
+    <h1 class="text-2xl font-bold text-gray-800 mb-4">修改 {{ dept_name }} 部门负责人</h1>
+
+    <p class="mb-4 text-gray-600">
+      当前负责人：
+      <span class="font-semibold text-blue-700">
+        {{ current_manager if current_manager else '（暂无）' }}
+      </span>
+    </p>
+
+    <form method="post">
+      <label class="block mb-2 text-gray-700 font-medium">选择新负责人：</label>
+      <select name="manager_id" class="w-full border border-gray-300 rounded p-2 mb-6">
+        {% for emp in employees %}
+          <option value="{{ emp.emp_id }}">
+            {{ emp.name }}（{{ emp.pos_name }}）
+          </option>
+        {% endfor %}
+      </select>
+
+      <div class="flex justify-between items-center">
+        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg shadow">
+          提交修改
+        </button>
+        <a href="{{ url_for('choose_department') }}" class="bg-gray-500 text-white py-2 px-6 rounded hover:bg-gray-600">返回</a>
+      </div>
+    </form>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="mt-4">
+          {% for category, msg in messages %}
+            <div class="text-sm text-{{ 'green' if category == 'success' else 'red' }}-600">
+              {{ msg }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+  </div>
+</body>
+</html>

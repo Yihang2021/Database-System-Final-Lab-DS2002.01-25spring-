@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>岗位与薪资调整</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-8">
+
+    <div class="max-w-4xl mx-auto bg-white shadow-xl rounded-xl p-8">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">员工岗位/薪资调整</h2>
+
+        {% if message %}
+            <div class="bg-green-100 text-green-800 p-4 rounded-lg mb-4">
+                <p>{{ message }}</p>
+            </div>
+        {% endif %}
+
+        <table class="min-w-full table-auto border-collapse border border-gray-200 mb-4">
+            <thead>
+                <tr>
+                    <th class="px-4 py-2 border border-gray-300">员工ID</th>
+                    <th class="px-4 py-2 border border-gray-300">姓名</th>
+                    <th class="px-4 py-2 border border-gray-300">部门</th>
+                    <th class="px-4 py-2 border border-gray-300">岗位</th>
+                    <th class="px-4 py-2 border border-gray-300">薪资</th>
+                    <th class="px-4 py-2 border border-gray-300">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for emp in employees %}
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300">{{ emp[0] }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ emp[1] }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ emp[2] }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ emp[3] }}</td>
+                        <td class="px-4 py-2 border border-gray-300">{{ emp[4] }}</td>
+                        <td class="px-4 py-2 border border-gray-300">
+                            <a href="{{ url_for('adjust_position_form', emp_id=emp[0]) }}"
+                               class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg">
+                                调整
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ url_for('dashboard') }}" class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-6 rounded-lg mt-4 inline-block">
+            返回
+        </a>
+    </div>
+
+</body>
+</html>

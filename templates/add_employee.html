@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>新增员工</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 p-8">
+    <div class="max-w-4xl mx-auto bg-white shadow-xl rounded-xl p-8">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">新增员工</h1>
+
+        {% if error %}
+        <div class="text-red-500 mb-4">{{ error }}</div>
+        {% endif %}
+
+        {% if success %}
+        <div class="text-green-500 mb-4">{{ success }}</div>
+        {% endif %}
+
+        <form method="POST" action="/add_employee">
+            <div class="mb-4">
+                <label for="name" class="block text-gray-700">姓名</label>
+                <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded" required>
+            </div>
+            <div class="mb-4">
+                <label for="gender" class="block text-gray-700">性别</label>
+                <select id="gender" name="gender" class="w-full px-4 py-2 border border-gray-300 rounded" required>
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="education" class="block text-gray-700">学历</label>
+                <select id="education" name="education" class="w-full px-4 py-2 border border-gray-300 rounded" required>
+                    <option value="中专">中专</option>
+                    <option value="高中">高中</option>
+                    <option value="大专">大专</option>
+                    <option value="本科">本科</option>
+                    <option value="硕士">硕士</option>
+                    <option value="博士">博士</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="phone" class="block text-gray-700">手机号</label>
+                <input type="text" id="phone" name="phone" class="w-full px-4 py-2 border border-gray-300 rounded" required>
+            </div>
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700">邮箱</label>
+                <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded" required>
+            </div>
+            <div class="mb-4">
+                <label for="pos_id" class="block text-gray-700">岗位</label>
+                <select id="pos_id" name="pos_id" class="w-full px-4 py-2 border border-gray-300 rounded" required>
+                    {% for position in positions %}
+                        <option value="{{ position.pos_id }}">{{ position.pos_name }} ({{ position.dept_id }}) - {{ position.min_salary }} ~ {{ position.max_salary }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="salary" class="block text-gray-700">薪资</label>
+                <input type="number" id="salary" name="salary" class="w-full px-4 py-2 border border-gray-300 rounded" required>
+            </div>
+            <div class="mb-4">
+                <button type="submit" class="bg-blue-500 text-white py-2 px-6 rounded hover:bg-blue-600">提交</button>
+                <a href="{{ url_for('dashboard') }}" class="bg-gray-500 text-white py-2 px-6 rounded hover:bg-gray-600">返回</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

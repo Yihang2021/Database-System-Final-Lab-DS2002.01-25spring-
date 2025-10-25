@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>查看所有部门</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">所有部门信息</h2>
+
+    {% for dept in departments %}
+      <div class="bg-white shadow-md rounded-lg p-6 mb-8">
+        <h3 class="text-xl font-bold text-gray-800 mb-2">{{ dept.dept_name }}（{{ dept.dept_id }}）</h3>
+        <p class="text-gray-600 mb-1"><strong>负责人：</strong>{{ dept.manager_name if dept.manager_name else "暂未指定" }}</p>
+        <p class="text-gray-600 mb-4"><strong>职责：</strong>{{ dept.function_desc }}</p>
+
+        {% if dept.positions %}
+          <div class="space-y-4">
+            {% for pos in dept.positions %}
+              <div class="border border-gray-200 rounded p-3">
+                <h4 class="font-semibold text-gray-700">{{ pos.pos_name }}（{{ pos.pos_id }}）</h4>
+                {% if pos.employees %}
+                  <ul class="list-disc ml-6 mt-1 text-gray-600">
+                    {% for emp in pos.employees %}
+                      <li>{{ emp.name }}（{{ emp.emp_id }}）</li>
+                    {% endfor %}
+                  </ul>
+                {% else %}
+                  <p class="text-gray-400 text-sm ml-6">暂无员工</p>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p class="text-gray-500">该部门暂无岗位</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    <div class="text-center mt-8">
+      <a href="{{ url_for('dashboard') }}" class="bg-gray-500 text-white py-2 px-6 rounded hover:bg-gray-600">返回</a>
+    </div>
+  </div>
+</body>
+</html>

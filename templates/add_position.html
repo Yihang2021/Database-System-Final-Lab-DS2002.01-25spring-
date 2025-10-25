@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>新增岗位</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-10">
+  <div class="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-8">
+    <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">新增岗位</h2>
+
+    {% if message %}
+      <p class="text-green-600 font-semibold mb-4 text-center">{{ message }}</p>
+    {% elif error %}
+      <p class="text-red-600 font-semibold mb-4 text-center">{{ error }}</p>
+    {% endif %}
+
+    <form method="post" class="space-y-4">
+      <div>
+        <label class="block font-medium text-gray-700">岗位名称：</label>
+        <input type="text" name="pos_name" required class="mt-1 block w-full border border-gray-300 rounded p-2">
+      </div>
+
+      <div>
+        <label class="block font-medium text-gray-700">所属部门：</label>
+        <select name="dept_id" required class="mt-1 block w-full border border-gray-300 rounded p-2">
+          <option value="" disabled selected>请选择部门</option>
+          {% for dept in departments %}
+            <option value="{{ dept.dept_id }}">{{ dept.dept_name }}（{{ dept.dept_id }}）</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div>
+        <label class="block font-medium text-gray-700">最低薪资：</label>
+        <input type="number" name="min_salary" step="100" required class="mt-1 block w-full border border-gray-300 rounded p-2">
+      </div>
+
+      <div>
+        <label class="block font-medium text-gray-700">最高薪资：</label>
+        <input type="number" name="max_salary" step="100" required class="mt-1 block w-full border border-gray-300 rounded p-2">
+      </div>
+
+      <div class="flex justify-center space-x-4">
+        <button type="submit" class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700">提交</button>
+        <a href="{{ url_for('dashboard') }}" class="bg-gray-500 text-white py-2 px-6 rounded hover:bg-gray-600">返回</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
